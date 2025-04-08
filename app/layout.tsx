@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { IngestionProvider } from "@/lib/context/IngestionContext";
+import { ThemeProvider } from "@/components/theme-provider";
 
 
 export const metadata: Metadata = {
@@ -18,7 +20,17 @@ export default function RootLayout({
         suppressHydrationWarning
         className={` antialiased`}
       >
-        {children}
+        <IngestionProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+          
+          </IngestionProvider>
       </body>
     </html>
   );

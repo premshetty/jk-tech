@@ -2,11 +2,11 @@
 import { AlertDestructive } from "@/components/alert-destructive";
 import LoginForm, { AuthFormData } from "@/components/login-form";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+
 export default function Page() {
-
+    const router = useRouter();
     const [error, setError] = useState<string | null>(null)
-
-
 
     const submitHandler = async (formdata: AuthFormData) => {
         setError(null)
@@ -19,6 +19,8 @@ export default function Page() {
         const data = await res.json();
         if (res.ok) {
             console.log('Logged in:', data.user);
+            localStorage.setItem("user", JSON.stringify(data.user))
+            router.push("/");
         } else {
             console.log(error)
             setError(data.error || 'Login failed. Please try again.')

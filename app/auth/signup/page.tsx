@@ -1,8 +1,10 @@
 'use client'
 import { AlertDestructive } from "@/components/alert-destructive";
 import LoginForm, { AuthFormData } from "@/components/login-form";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 export default function Page() {
+     const router = useRouter();
     const [error, setError] = useState<string | null>(null)
     const submitHandler = async (formdata: AuthFormData) => {
         setError(null)
@@ -21,6 +23,8 @@ export default function Page() {
         const data = await res.json();
         if (res.ok) {
             console.log('Logged in:', data.user);
+            localStorage.setItem("user", JSON.stringify(data.user))
+            router.push("/");
         } else {
             setError(data.error || 'SignUp failed. Please try again.')
         }
