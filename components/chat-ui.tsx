@@ -107,11 +107,11 @@ export function ChatPanel({ file, messages, setMessages, onClose }: ChatPanelPro
             <ScrollArea className="flex-1 p-4 h-[70vh]">
                 <div className="space-y-4">
                     {messages[file.name]?.map((message, i) => (
-                        <div key={i} className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}>
+                        <div key={i} className={`flex  ${message.role === "user" ? "justify-end" : "justify-start"}`}>
                             <div
                                 key={i}
                                 data-testid={message.role === "assistant" && !thinking  ? "assistant-message" : undefined}
-                                className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
+                                className={`flex rounded-lg p-3 flex-col ${message.role === "user" ? "bg-primary text-primary-foreground" : "bg-muted"} ${message.role === "user" ? "justify-end" : "justify-start"}`}
                             >
 
                                 <p className="wrap-break-word">{message.content}</p>
@@ -122,7 +122,7 @@ export function ChatPanel({ file, messages, setMessages, onClose }: ChatPanelPro
 
                     {/* Optional thinking bubble */}
                     {thinking && (
-                        <div className="flex justify-start">
+                        <div className="flex  justify-start">
                             <div className="max-w-[80%] rounded-lg p-3 bg-muted text-sm opacity-70 italic">
                                 Thinking...
                             </div>

@@ -6,7 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import { IngestionProvider } from "@/lib/context/IngestionContext";
 import { LogOut, Upload, Users } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import "./globals.css";
 
 
@@ -16,6 +16,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const router = useRouter()
+  const pathname = usePathname();
+  const isAuthRoute = pathname?.startsWith("/auth");
   const handleLogout = async () => {
     await fetch("/api/auth/logout", { method: "POST" })
     router.push("/auth/login")
@@ -35,7 +37,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <div className="flex flex-col h-screen">
-              <header className="sticky top-0 flex shrink-0 items-center gap-2 border-b bg-background p-4">
+              {!isAuthRoute &&   <header className="sticky top-0 flex shrink-0 items-center gap-2 border-b bg-background p-4">
                 <div className="flex justify-between items-center w-full">
                   <div className="flex h-5 items-center space-x-4 text-sm">
                     <Link href={'/users'} className="flex items-center gap-2">
@@ -54,7 +56,7 @@ export default function RootLayout({
                     Log out
                   </Button>
                 </div>
-              </header>
+              </header>}
 
               {children}
             </div>
