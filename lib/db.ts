@@ -1,5 +1,5 @@
-
 import { openDB } from "idb";
+import { extractTextFromFile } from "./extractTextFromFile";
 
 export const getDB = () =>
   openDB("UploadDB", 1, {
@@ -8,9 +8,11 @@ export const getDB = () =>
     },
   });
 
+
 export const saveFile = async (file: File) => {
   const db = await getDB();
-  await db.put("files", { name: file.name, file });
+  const content = await extractTextFromFile(file);
+  await db.put("files", { name: file.name, file, content }); // ✅ storing content too
 };
 
 export const getAllFiles = async () => {
@@ -22,4 +24,3 @@ export const deleteFile = async (name: string) => {
   const db = await getDB();
   return db.delete("files", name);
 };
-
