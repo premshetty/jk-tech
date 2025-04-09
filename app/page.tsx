@@ -1,6 +1,7 @@
 
 "use client"
 import { ChatPanel } from "@/components/chat-ui"
+import FileViewer from "@/components/file-viewer"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -11,7 +12,7 @@ import { deleteFile, getAllFiles, saveFile } from "@/lib/db"
 import { FileIcon, Upload } from "lucide-react"
 
 import { useEffect, useState } from "react"
-type StoredFile = {
+export type StoredFile = {
   name: string
   file: File
   content: string
@@ -103,7 +104,7 @@ export default function UploadPage() {
                 <div className="grid gap-4 sm:grid-cols-[1fr_auto]">
                   <div className="relative">
                     <Input
-                      accept=".txt,.md,.json,.csv,.tsv"
+                      accept=".txt,.md,.json,.csv,.tsv ,.css,.html,.js,.jsx,.ts,.tsx,.py,.java,.c,.cpp"
                       type="file"
                       id="file-upload"
                       className="absolute inset-0 opacity-0 cursor-pointer z-10"
@@ -173,15 +174,9 @@ export default function UploadPage() {
         </div>
 
         {activeChatFile && (<div className="flex my-4 gap-2 w-full">
-          <div className={`${activeChatFile ? "hidden md:block" : "block"} rounded-md border w-[30%] flex-1 p-4 bg-muted text-sm max-h-full overflow-auto`}>
-            <h4 className="font-semibold mb-2">File Preview: {activeChatFile.name}</h4>
-            <pre className="whitespace-pre-wrap">{activeChatFile.content}</pre>
-          </div>
-     
-
+          <FileViewer activeChatFile={activeChatFile} />
           <ChatPanel messages={messages} setMessages={setMessages}
             file={activeChatFile} onClose={() => setActiveChatFile(null)} />
-
         </div>
         )}
       </div>

@@ -44,7 +44,10 @@ export default function UserManagementTable() {
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [searchTerm, setSearchTerm] = useState("")
-
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 8,
+  })
   const fetchUsers = async () => {
     const res = await fetch("/api/users")
     const data = await res.json()
@@ -135,10 +138,12 @@ export default function UserManagementTable() {
       sorting,
       columnFilters,
       globalFilter: searchTerm,
+      pagination,
     },
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     onGlobalFilterChange: setSearchTerm,
+    onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),

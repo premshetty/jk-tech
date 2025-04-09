@@ -92,7 +92,7 @@ export function ChatPanel({ file, messages, setMessages, onClose }: ChatPanelPro
     }
 
     return (
-        <div className="flex-1 border-l md:max-w-md flex flex-col h-full">
+        <div className="flex-1 border-l md:max-w-md flex  flex-col h-full">
             <div className="p-4 border-b flex justify-between items-center bg-muted/30">
                 <div className="flex items-center gap-2">
                     <FileIcon className="h-4 w-4" />
