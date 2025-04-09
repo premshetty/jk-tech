@@ -25,15 +25,15 @@ type ChatPanelProps = {
 }
 
 export function ChatPanel({ file, messages, setMessages, onClose }: ChatPanelProps) {
-    console.log(file)
     const [currentMessage, setCurrentMessage] = useState("")
+    const [thinking, setThinking] = useState(false)
     const chatEndRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
         if (chatEndRef.current) {
             chatEndRef.current.scrollIntoView({ behavior: "smooth" })
         }
-    }, [messages, file])
+    }, [messages, file, thinking])
 
     const handleSendMessage = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -50,6 +50,7 @@ export function ChatPanel({ file, messages, setMessages, onClose }: ChatPanelPro
             [file.name]: [...(prev[file.name] || []), userMessage],
         }))
         setCurrentMessage("")
+        setThinking(true)
 
         try {
             const res = await fetch("/api/chat", {
@@ -85,6 +86,8 @@ export function ChatPanel({ file, messages, setMessages, onClose }: ChatPanelPro
                     },
                 ],
             }))
+        } finally {
+            setThinking(false)
         }
     }
 
@@ -93,7 +96,7 @@ export function ChatPanel({ file, messages, setMessages, onClose }: ChatPanelPro
             <div className="p-4 border-b flex justify-between items-center bg-muted/30">
                 <div className="flex items-center gap-2">
                     <FileIcon className="h-4 w-4" />
-                    <h3 className="font-medium truncate">{file.name}</h3>
+                    <h3 className="font-medium truncate max-w-72">{file.name}</h3>
                 </div>
                 <Button variant="ghost" size="icon" onClick={onClose}>
                     <X className="h-4 w-4" />
@@ -109,11 +112,20 @@ export function ChatPanel({ file, messages, setMessages, onClose }: ChatPanelPro
                                 className={`max-w-[80%] rounded-lg p-3 ${message.role === "user" ? "bg-primary text-primary-foreground" : "bg-muted"
                                     }`}
                             >
-                                <p>{message.content}</p>
+                                <p className="wrap-break-word">{message.content}</p>
                                 <p className="text-xs opacity-70 mt-1">{message.timestamp.toLocaleTimeString()}</p>
                             </div>
                         </div>
                     ))}
+
+                    {/* Optional thinking bubble */}
+                    {thinking && (
+                        <div className="flex justify-start">
+                            <div className="max-w-[80%] rounded-lg p-3 bg-muted text-sm opacity-70 italic">
+                                Thinking...
+                            </div>
+                        </div>
+                    )}
                     <div ref={chatEndRef} />
                 </div>
             </ScrollArea>
@@ -125,8 +137,11 @@ export function ChatPanel({ file, messages, setMessages, onClose }: ChatPanelPro
                         value={currentMessage}
                         onChange={(e) => setCurrentMessage(e.target.value)}
                         className="flex-1"
+                        disabled={thinking}
                     />
-                    <Button type="submit">Send</Button>
+                    <Button type="submit" disabled={thinking}>
+                        {thinking ? "..." : "Send"}
+                    </Button>
                 </div>
             </form>
         </div>
