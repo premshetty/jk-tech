@@ -109,9 +109,11 @@ export function ChatPanel({ file, messages, setMessages, onClose }: ChatPanelPro
                     {messages[file.name]?.map((message, i) => (
                         <div key={i} className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}>
                             <div
-                                className={`max-w-[80%] rounded-lg p-3 ${message.role === "user" ? "bg-primary text-primary-foreground" : "bg-muted"
-                                    }`}
+                                key={i}
+                                data-testid={message.role === "assistant" && !thinking  ? "assistant-message" : undefined}
+                                className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
                             >
+
                                 <p className="wrap-break-word">{message.content}</p>
                                 <p className="text-xs opacity-70 mt-1">{message.timestamp.toLocaleTimeString()}</p>
                             </div>
