@@ -34,20 +34,38 @@ Built with the latest web technologies including **Next.js 15**, **React 19**, a
 git clone https://github.com/your-username/jk-tech.git
 cd jk-tech
 ```
+
 ### 2. Install Dependencies:
+
 ```bash
 npm install
 # or
 yarn install
 ```
+
 ### 3. Create a .env.local file in the root directory and add the following:
+
 ```js
 # Gemini API Key (Free Tier Supported)
 GEMINI_API_KEY=your_gemini_api_key_here
 ```
+
 ### 4. Start the Development Server
+
 ```js
 npm run dev
+```
+
+### 5. Mock users
+
+```js
+#admin
+Email : admin@example.com
+Password : admin123
+
+# user
+Email: user@example.com
+Password: password123
 ```
 
 ## 🧪 Running Tests (Playwright)
@@ -59,11 +77,15 @@ npm run dev
 ```bash
 npm init playwright@latest
 ```
+
 ### 2. Run Tests
+
 ```bash
 npx playwright test
 ```
+
 ### 3. To run tests with the UI visible (headed mode)::
+
 ```bash
 npx playwright test --headed
 ```
@@ -79,11 +101,16 @@ npx playwright test  # Run all automated Playwright tests
 
 ```
 
+### 📸 Screenshots
 
-### 📸 Screenshots 
 ## Login
+
 ![Login Screenshot](./public/login.png)
+
 ## Upload Files and Chat with AI
+
 ![Login chatscreen](./public/chatscreen.png)
+
 ## User Management
+
 ![Login chatscreen](./public/usermanagment.png)

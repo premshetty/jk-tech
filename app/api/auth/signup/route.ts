@@ -12,6 +12,7 @@ export async function POST(req: NextRequest) {
     id: mockUsers.length + 1,
     email,
     password,
+    name : email.split("@")[0],
     role: "user",
   };
 
