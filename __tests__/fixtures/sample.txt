@@ -1,0 +1,47 @@
+---
+Hello, world!
+---
+id:  1
+url: https://example.org/initial-post
+---
+title:  Strange Case of Dr. Jekyll and Mr. Hyde
+year:   1886
+author:
+  name: Robert Louis Stevenson
+---
+
+=Story of the Door=
+
+Mr. Utterson the lawyer was a man of a rugged countenance, that was
+never lighted by a smile; cold, scanty and embarrassed in
+discourse; backward in sentiment; lean, long, dusty, dreary, and
+yet somehow lovable. At friendly meetings, and when the wine was to
+his taste, something eminently human beaconed from his eye;
+something indeed which never found its way into his talk, but which
+spoke not only in these silent symbols of the after-dinner face, but
+more often and loudly in the acts of his life...
+
+(A) Call Mom @Phone +Family
+(A) Schedule annual checkup +Health
+(B) Outline chapter 5 +Novel @Computer
+(C) Add cover sheets @Office +TPSReports
+Plan backyard herb garden @Home
+Pick up milk @GroceryStore
+Research self-publishing services +Novel @Computer
+x Download Todo.txt mobile app @Phone
+
+|>>>
+ title:          My Example Feed
+ home_page_url:  https://example.org/
+ feed_url:       https://example.org/feed.txt
+ </>
+ id:  2
+ url: https://example.org/second-item
+ ---
+ This is a second item.
+ </>
+ id:  1
+ url: https://example.org/initial-post
+ ---
+ Hello, world!
+<<<| 
